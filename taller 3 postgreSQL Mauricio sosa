@@ -1,0 +1,61 @@
+1. Enunciado: Selecciona todos los clientes junto con los detalles de sus cuentas.
+SELECT * FROM public.clientes Cl LEFT JOIN public.cuenta_bancaria cta ON (cl.cliente_id= cta.cliente_id ) ;
+
+2. Enunciado: Selecciona todos los empleados y las sucursales donde trabajan, incluyendo aquellos empleados que no están asignados a ninguna sucursal.
+SELECT * FROM public.empleados E left JOIN public.sucursales S ON ( E.sucursal_id=S.sucursal_id );
+
+3. Enunciado: Selecciona todos los clientes y sus transacciones, incluyendo aquellas transacciones que no tienen clientes asignados.
+SELECT * 
+FROM public.clientes CL INNER JOIN public.cuenta_bancaria cta ON (cl.cliente_id= cta.cliente_id )
+ RIGHT JOIN public.transacciones t ON (cta.cuenta_id= T.cuenta_id )
+;
+En teoria no se puede dar porque la transacción exige una cuenta y la cuenta tambien exige que tenga un cliente 
+Al ingresar una transacción sin una cuenta existente genera error de clave foranea 
+
+4. Enunciado: Selecciona todos los empleados y los departamentos, incluyendo aquellos empleados que no están asignados a un departamento y aquellos departamentos sin empleados.
+departamentos no exite en el modelo de datos 
+pero para todos los empleados pertenecezcan o no a un departamento seria
+SELECT * FROM public.empleados e left join departamentos d on (e.departamento_id=d.departamento_id);
+para todos los departamentos tengan o no empleados 
+SELECT * FROM public.empleados e RIGHT join departamentos d on (e.departamento_id=d.departamento_id);
+
+5. Enunciado: Selecciona los clientes que tienen cuentas con un saldo mayor a 5000.
+SELECT * 
+FROM public.clientes Cl INNER  JOIN public.cuenta_bancaria cta ON (cl.cliente_id= cta.cliente_id )
+where CTA.saldo  > '5000.0';
+
+6. Enunciado: Selecciona todos los empleados y las sucursales donde trabajan, incluyendo aquellos empleados que no están asignados a ninguna sucursal, pero solo si la sucursal está en "New York".
+SELECT * FROM public.empleados E left JOIN public.sucursales S ON ( E.sucursal_id=S.sucursal_id )
+where s.nombre ='New York';
+
+7. Enunciado: Selecciona todas las transacciones y los clientes asociados, incluyendo aquellas transacciones sin clientes, pero solo si el monto de la transacción es menor a 100.
+
+SELECT * 
+FROM public.clientes CL INNER JOIN public.cuenta_bancaria cta ON (cl.cliente_id= cta.cliente_id )
+ RIGHT JOIN public.transacciones t ON (cta.cuenta_id= T.cuenta_id )
+;
+
+En teoria no se puede dar porque la transacción exige una cuenta y la cuenta tambien exige que tenga un cliente 
+Al ingresar una transacción sin una cuenta existente genera error de clave foranea 
+
+8. Enunciado: Selecciona todos los empleados y los departamentos, incluyendo aquellos empleados que no están asignados a un departamento y aquellos departamentos sin empleados, pero solo si el departamento está en "HR".
+departamentos no exite en el modelo de datos 
+SELECT * FROM public.empleados e left join departamentos d on (e.departamento_id=d.departamento_id)
+where d.nombre like 'HR%';
+
+9. Enunciado: Selecciona las cuentas, los clientes y las transacciones asociadas a cada cuenta.
+SELECT * 
+FROM public.clientes CL INNER JOIN public.cuenta_bancaria cta ON (cl.cliente_id= cta.cliente_id )
+ INNER JOIN public.transacciones t ON (cta.cuenta_id= T.cuenta_id )
+ order by cl.cliente_id , cta.cuenta_id;
+
+10. Enunciado: Selecciona todas las transacciones, los clientes y las cuentas, incluyendo aquellas transacciones que no están asignadas a ningún cliente o cuenta.
+SELECT * 
+FROM public.clientes CL LEFT JOIN public.cuenta_bancaria cta ON (cl.cliente_id= cta.cliente_id )
+ LEFT JOIN public.transacciones t ON (cta.cuenta_id= T.cuenta_id )
+ order by cl.cliente_id , cta.cuenta_id;
+
+
+En teoria no se puede dar porque la transacción exige una cuenta y la cuenta tambien exige que tenga un cliente 
+Al ingresar una transacción sin una cuenta existente genera error de clave foranea 
+
